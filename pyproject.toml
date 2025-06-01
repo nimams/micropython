@@ -27,7 +27,7 @@ line-length = 99
 target-version = "py37"
 
 [tool.ruff.lint]
-exclude = [  # Ruff finds Python SyntaxError in these files
+exclude = [ # Ruff finds Python SyntaxError in these files
   "tests/cmdline/repl_autocomplete.py",
   "tests/cmdline/repl_autoindent.py",
   "tests/cmdline/repl_basic.py",
@@ -65,5 +65,23 @@ mccabe.max-complexity = 40
 #   basics: needs careful attention before applying automatic formatting
 #   repl_: not real python files
 #   viper_args: uses f(*)
-exclude = ["tests/basics/*.py", "tests/*/repl_*.py", "tests/micropython/viper_args.py"]
+exclude = [
+  "tests/basics/*.py",
+  "tests/*/repl_*.py",
+  "tests/micropython/viper_args.py",
+]
 quote-style = "preserve"
+
+[tool.mypy]
+python_version = "3.7"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+strict_equality = true
