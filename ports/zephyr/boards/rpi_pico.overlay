@@ -1,0 +1,75 @@
+&pinctrl {
+  pio1_uart0_default: pio1_uart0_default {
+    rx_pins {
+      pinmux = <PIO1_P1>;
+      input-enable;
+      bias-pull-up;
+    };
+    tx_pins {
+      pinmux = <PIO1_P0>;
+    };
+  };
+
+  pio1_uart1_default: pio1_uart1_default {
+    rx_pins {
+      pinmux = <PIO1_P2>;
+      input-enable;
+      bias-pull-up;
+    };
+    tx_pins {
+      pinmux = <PIO1_P3>;
+    };
+  };
+};
+
+&pio1 {
+  status = "okay";
+
+  pio1_uart0: uart0 {
+    pinctrl-0 = <&pio1_uart0_default>;
+    pinctrl-names = "default";
+
+    compatible = "raspberrypi,pico-uart-pio";
+    current-speed = <115200>;
+    status = "disabled";
+  };
+
+  pio1_uart1: uart1 {
+    pinctrl-0 = <&pio1_uart1_default>;
+    pinctrl-names = "default";
+
+    compatible = "raspberrypi,pico-uart-pio";
+    current-speed = <115200>;
+    status = "disabled";
+  };
+};
+
+&pinctrl {
+  usb_default: usb_default {
+    group1 {
+      pinmux = <USB_VBUS_DET_P1>;
+      input-enable;
+    };
+  };
+};
+
+zephyr_udc0: &usbd {
+  status = "okay";
+  pinctrl-0 = <&usb_default>;
+  pinctrl-names = "default";
+};
+
+/ {
+  chosen {
+    zephyr,console = &cdc_acm_uart0;
+  };
+};
+
+&zephyr_udc0 {
+  cdc_acm_uart0: cdc_acm_uart0 {
+    compatible = "zephyr,cdc-acm-uart";
+    label = "CDC_ACM_0";
+  };
+};
+
+
